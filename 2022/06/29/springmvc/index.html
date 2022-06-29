@@ -1,0 +1,652 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="高国鹏">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="1、什么是Spring MVC ？简单介绍下你对springMVC的理解?SpringMVC 是spring框架的一部分，是基于java实现MVC的轻量级Web框架，通过把Model，View，Controller分离，将web层进行解耦，把复杂的web应用分成逻辑清晰的几部分，简化开发，减少出错，方便组内开发人员之间的配合。 SpringMVC作用首先他轻量，高效，独立开发，可以扩展，可以维护，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="springmvc">
+<meta property="og:url" content="http://example.com/2022/06/29/springmvc/index.html">
+<meta property="og:site_name" content="我也是鹏鹏啊">
+<meta property="og:description" content="1、什么是Spring MVC ？简单介绍下你对springMVC的理解?SpringMVC 是spring框架的一部分，是基于java实现MVC的轻量级Web框架，通过把Model，View，Controller分离，将web层进行解耦，把复杂的web应用分成逻辑清晰的几部分，简化开发，减少出错，方便组内开发人员之间的配合。 SpringMVC作用首先他轻量，高效，独立开发，可以扩展，可以维护，">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-06-29T09:14:10.000Z">
+<meta property="article:modified_time" content="2022-06-29T10:42:03.939Z">
+<meta property="article:author" content="高国鹏">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>springmvc - 我也是鹏鹏啊</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.2","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>欢迎来到鹏鹏的博客~</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="springmvc"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-06-29 17:14" pubdate>
+          2022年6月29日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          25 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">springmvc</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h3 id="1、什么是Spring-MVC-？简单介绍下你对springMVC的理解"><a href="#1、什么是Spring-MVC-？简单介绍下你对springMVC的理解" class="headerlink" title="1、什么是Spring MVC ？简单介绍下你对springMVC的理解?"></a>1、什么是Spring MVC ？简单介绍下你对springMVC的理解?</h3><p>SpringMVC 是spring框架的一部分，是基于java实现MVC的轻量级Web框架，通过把<strong>Model，View，Controller</strong>分离，将web层进行解耦，把复杂的web应用分成逻辑清晰的几部分，简化开发，减少出错，方便组内开发人员之间的配合。</p>
+<h2 id="SpringMVC作用"><a href="#SpringMVC作用" class="headerlink" title="SpringMVC作用"></a>SpringMVC作用</h2><p>首先他轻量，高效，独立开发，可以扩展，可以维护，可以复用，可以测试，它即实现了业务逻辑，与数据分离展示，且各模块最大限度的解耦独立开发。</p>
+<h3 id="Spring-MVC的优点"><a href="#Spring-MVC的优点" class="headerlink" title="Spring MVC的优点"></a>Spring MVC的优点</h3><p>（1）可以支持各种视图技术,而不仅仅局限于JSP；</p>
+<p>（2）与Spring框架集成（如IoC容器、AOP等）；</p>
+<p>（3）清晰的角色分配：前端控制器(dispatcherServlet) , 请求到处理器映射（handlerMapping), 处理器适配器（HandlerAdapter), 视图解析器（ViewResolver）。</p>
+<p>（4） 支持各种请求资源的映射策略。</p>
+<h3 id="MVC是什么？MVC设计模式的好处有哪些"><a href="#MVC是什么？MVC设计模式的好处有哪些" class="headerlink" title="MVC是什么？MVC设计模式的好处有哪些"></a>MVC是什么？MVC设计模式的好处有哪些</h3><p>mvc是一种设计模式（设计模式就是日常开发中编写代码的一种好的方法和经验的总结）。模型（model）-视图（view）-控制器（controller），三层架构的设计模式。用于实现前端页面的展现与后端业务数据处理的分离。</p>
+<p>mvc设计模式的好处</p>
+<p>1.分层设计，实现了业务系统各个组件之间的解耦，有利于业务系统的可扩展性，可维护性。</p>
+<p>2.有利于系统的并行开发，提升开发效率。</p>
+<h3 id="Spring-MVC常用的注解有哪些？"><a href="#Spring-MVC常用的注解有哪些？" class="headerlink" title="Spring MVC常用的注解有哪些？"></a>Spring MVC常用的注解有哪些？</h3><p>@RequestMapping：用于处理请求 url 映射的注解，可用于类或方法上。用于类上，则表示类中的所有响应请求的方法都是以该地址作为父路径。</p>
+<p>@RequestBody：注解实现接收http请求的json数据，将json转换为java对象。</p>
+<p>@ResponseBody：注解实现将conreoller方法返回对象转化为json对象响应给客户。</p>
+<h3 id="SpingMvc中的控制器的注解一般用哪个-有没有别的注解可以替代？"><a href="#SpingMvc中的控制器的注解一般用哪个-有没有别的注解可以替代？" class="headerlink" title="SpingMvc中的控制器的注解一般用哪个,有没有别的注解可以替代？"></a>SpingMvc中的控制器的注解一般用哪个,有没有别的注解可以替代？</h3><p>答：一般用@Controller注解,也可以使用@RestController,@RestController注解相当于@ResponseBody ＋ @Controller,表示是表现层,除此之外，一般不用别的注解代替。</p>
+<h3 id="Controller注解的作用"><a href="#Controller注解的作用" class="headerlink" title="@Controller注解的作用"></a>@Controller注解的作用</h3><p>在Spring MVC 中，控制器Controller 负责处理由前端控制器DispatcherServlet 分发的请求，它把用户请求的数据经过业务层处理之后封装成一个Model ，然后再把该Model 返回给对应的View 进行展示。</p>
+<p>@Controller  你无需继承特定的类或实现特定的接口，然后用@RequestMapping 和@RequestParam 等一些注解用以定义URL 请求和Controller 方法之间的映射，这样的Controller 就能被外界访问到。此外Controller 不会直接依赖于HttpServletRequest 和HttpServletResponse 等HttpServlet 对象，它们可以通过Controller 的方法参数灵活的获取到。</p>
+<h3 id="RequestMapping注解的作用"><a href="#RequestMapping注解的作用" class="headerlink" title="@RequestMapping注解的作用"></a>@RequestMapping注解的作用</h3><p>RequestMapping是一个用来处理请求地址映射的注解，可用于类或方法上。用于类上，表示类中的所有响应请求的方法都是以该地址作为父路径。</p>
+<p>（RequestMapping注解有六个属性</p>
+<p><strong>value， method</strong></p>
+<p>value： 指定请求的实际地址，指定的地址可以是URI Template 模式；</p>
+<p>method： 指定请求的method类型， GET、POST等；）</p>
+<h3 id="ResponseBody注解的作用"><a href="#ResponseBody注解的作用" class="headerlink" title="@ResponseBody注解的作用"></a>@ResponseBody注解的作用</h3><p>作用： 注解实现将conreoller方法返回对象转化为json对象响应给客户。</p>
+<p>（使用时机：返回的数据不是html标签的页面，而是其他某种格式的数据时（如json、xml等）使用；）</p>
+<h3 id="PathVariable和-RequestParam的区别"><a href="#PathVariable和-RequestParam的区别" class="headerlink" title="@PathVariable和@RequestParam的区别"></a>@PathVariable和@RequestParam的区别</h3><p>请求路径上有个id的变量值，可以通过@PathVariable来获取 @RequestMapping(value &#x3D; “&#x2F;page&#x2F;{id}”, method &#x3D; RequestMethod.GET)</p>
+<p>@RequestParam用来获得静态的URL请求入参 spring注解时action里用到。</p>
+<h3 id="介绍一下-WebApplicationContext"><a href="#介绍一下-WebApplicationContext" class="headerlink" title="介绍一下 WebApplicationContext"></a><strong>介绍一下 WebApplicationContext</strong></h3><p>WebApplicationContext 继承了ApplicationContext 并增加了一些WEB应用必备的特有功能，它不同于一般的ApplicationContext ，因为它能处理主题，并找到被关联的servlet。</p>
+<h3 id="Spring-MVC的异常处理？"><a href="#Spring-MVC的异常处理？" class="headerlink" title="Spring MVC的异常处理？"></a>Spring MVC的异常处理？</h3><p>答：可以将异常抛给Spring框架，由Spring框架来处理；我们只需要配置简单的异常处理器，在异常处理器中添视图页面即可。</p>
+<h3 id="如果在拦截请求中，我想拦截get方式提交的方法-怎么配置"><a href="#如果在拦截请求中，我想拦截get方式提交的方法-怎么配置" class="headerlink" title="如果在拦截请求中，我想拦截get方式提交的方法,怎么配置"></a>如果在拦截请求中，我想拦截get方式提交的方法,怎么配置</h3><p>答：可以在@RequestMapping注解里面加上method&#x3D;RequestMethod.GET。</p>
+<h3 id="怎样在方法里面得到Request-或者Session？"><a href="#怎样在方法里面得到Request-或者Session？" class="headerlink" title="怎样在方法里面得到Request,或者Session？"></a>怎样在方法里面得到Request,或者Session？</h3><p>答：直接在方法的形参中声明request,Spring MVC就自动把request对象传入。</p>
+<h3 id="如果想在拦截的方法里面得到从前台传入的参数-怎么得到？"><a href="#如果想在拦截的方法里面得到从前台传入的参数-怎么得到？" class="headerlink" title="如果想在拦截的方法里面得到从前台传入的参数,怎么得到？"></a>如果想在拦截的方法里面得到从前台传入的参数,怎么得到？</h3><p>答：直接在形参里面声明这个参数就可以,但必须名字和传过来的参数一样。</p>
+<h3 id="如果前台有很多个参数传入-并且这些参数都是一个对象的-那么怎么样快速得到这个对象？"><a href="#如果前台有很多个参数传入-并且这些参数都是一个对象的-那么怎么样快速得到这个对象？" class="headerlink" title="如果前台有很多个参数传入,并且这些参数都是一个对象的,那么怎么样快速得到这个对象？"></a>如果前台有很多个参数传入,并且这些参数都是一个对象的,那么怎么样快速得到这个对象？</h3><p>答：直接在方法中声明这个对象,Spring MVC就自动会把属性赋值到这个对象里面。</p>
+<h3 id="Spring-MVC中函数的返回值是什么？"><a href="#Spring-MVC中函数的返回值是什么？" class="headerlink" title="Spring MVC中函数的返回值是什么？"></a>Spring MVC中函数的返回值是什么？</h3><p>答：返回值可以有很多类型,有String, ModelAndView。ModelAndView类把视图和数据都合并的一起的，但一般用String比较好。</p>
+<h3 id="Spring-MVC用什么对象从后台向前台传递数据的？"><a href="#Spring-MVC用什么对象从后台向前台传递数据的？" class="headerlink" title="Spring MVC用什么对象从后台向前台传递数据的？"></a>Spring MVC用什么对象从后台向前台传递数据的？</h3><p>答：通过ModelMap对象,可以在这个对象里面调用put方法,把对象加到里面,前台就可以通过el表达式拿到。</p>
+<h3 id="怎么样把ModelMap里面的数据放入Session里面？"><a href="#怎么样把ModelMap里面的数据放入Session里面？" class="headerlink" title="怎么样把ModelMap里面的数据放入Session里面？"></a>怎么样把ModelMap里面的数据放入Session里面？</h3><p>答：可以在类上面加上@SessionAttributes注解,里面包含的字符串就是要放入session里面的key。</p>
+<h3 id="Spring-MVC里面拦截器是怎么写的"><a href="#Spring-MVC里面拦截器是怎么写的" class="headerlink" title="Spring MVC里面拦截器是怎么写的"></a>Spring MVC里面拦截器是怎么写的</h3><p>有两种写法,一种是实现HandlerInterceptor接口，另外一种是继承适配器类，接着在接口方法当中，实现处理逻辑；然后在Spring MVC的配置文件中配置拦截器即可：</p>
+<h3 id="如何解决POST请求中文乱码问题，GET的又如何处理呢？"><a href="#如何解决POST请求中文乱码问题，GET的又如何处理呢？" class="headerlink" title="如何解决POST请求中文乱码问题，GET的又如何处理呢？"></a>如何解决POST请求中文乱码问题，GET的又如何处理呢？</h3><p>（1）解决post请求乱码问题：</p>
+<p>在web.xml中配置一个CharacterEncodingFilter过滤器，设置成utf-8；</p>
+<p>mvc流程</p>
+<ol>
+<li>用户发请求</li>
+<li>Servlet接收请求数据，并调用对应的业务逻辑方法</li>
+<li>业务处理完毕，返回更新后的数据给Servlet</li>
+<li>servlet转向到JSP，由jsp来渲染页面</li>
+<li>响应给前端更新后的页面</li>
+</ol>
+<p>职责</p>
+<ul>
+<li>controller<ul>
+<li>取得表单数据</li>
+<li>调用业务逻辑</li>
+<li>转向指定的页面</li>
+</ul>
+</li>
+<li>Model<ul>
+<li>业务逻辑</li>
+<li>保存数据的状态</li>
+</ul>
+</li>
+<li>view<ul>
+<li>显示页面</li>
+</ul>
+</li>
+</ul>
+<p><strong>springmvc</strong></p>
+<p>依赖:</p>
+<ul>
+<li>junit    spring-webmvc   servlet-api    jsp-api  jstl</li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>springmvc</div>
+      <div>http://example.com/2022/06/29/springmvc/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>高国鹏</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年6月29日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/06/29/springboot/" title="springboot">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">springboot</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/06/29/spring/" title="spring">
+                        <span class="hidden-mobile">spring</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

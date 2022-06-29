@@ -1,0 +1,873 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="高国鹏">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="数据库 建表   增删改查创建数据库： 12Create DATABASE &#96;mybatis&#96;;use &#96;mybatis&#96;;  创建表 12345create table &#96;user&#96;(    &#96;id&#96; INT(20) not null,primary key (&#96;id&#96;),    &#96;name&#96; varchar(30) default null,    &#96;pwd&#96; varchar(30) defa">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mysql">
+<meta property="og:url" content="http://example.com/2022/06/29/mysql/index.html">
+<meta property="og:site_name" content="我也是鹏鹏啊">
+<meta property="og:description" content="数据库 建表   增删改查创建数据库： 12Create DATABASE &#96;mybatis&#96;;use &#96;mybatis&#96;;  创建表 12345create table &#96;user&#96;(    &#96;id&#96; INT(20) not null,primary key (&#96;id&#96;),    &#96;name&#96; varchar(30) default null,    &#96;pwd&#96; varchar(30) defa">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-06-29T09:13:27.000Z">
+<meta property="article:modified_time" content="2022-06-29T10:40:21.227Z">
+<meta property="article:author" content="高国鹏">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>mysql - 我也是鹏鹏啊</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.2","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>欢迎来到鹏鹏的博客~</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="mysql"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-06-29 17:13" pubdate>
+          2022年6月29日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          10k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          86 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">mysql</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="数据库-建表-增删改查"><a href="#数据库-建表-增删改查" class="headerlink" title="数据库 建表   增删改查"></a><strong>数据库 建表   增删改查</strong></h2><p><strong>创建数据库：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs mysql">Create DATABASE `mybatis`;<br>use `mybatis`;<br></code></pre></td></tr></table></figure>
+
+<p><strong>创建表</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs mysql">create table `user`(<br>    `id` INT(20) not null,primary key (`id`),<br>    `name` varchar(30) default null,<br>    `pwd` varchar(30) default null<br>) engine =innodb default  charset=utf8 ;     -- engine = innodb  引擎<br></code></pre></td></tr></table></figure>
+
+<p><strong>向表中插入数据</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs mysql">insert into `user`(`id`,`name`,`pwd`) values<br>(1,&#x27;高国鹏&#x27;,&#x27;123456&#x27;),<br>(2,&#x27;陈茜&#x27;,&#x27;156545&#x27;),<br>(3,&#x27;刘泽鑫&#x27;,&#x27;974445&#x27;),<br>(4,&#x27;李柔&#x27;,&#x27;465512&#x27;),<br>(5,&#x27;王雨妍&#x27;,&#x27;874152&#x27;);<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-operator">&lt;</span><span class="hljs-operator">!</span><span class="hljs-comment">--    修改用户--&gt;</span><br><span class="hljs-keyword">update</span> books <span class="hljs-keyword">set</span> bookName<span class="hljs-operator">=</span><span class="hljs-string">&#x27;JavaJava&#x27;</span> <span class="hljs-keyword">where</span> books.bookId <span class="hljs-operator">=</span> <span class="hljs-number">1</span>;<br><br><span class="hljs-operator">&lt;</span><span class="hljs-operator">!</span><span class="hljs-comment">--    删除用户--&gt;</span><br><span class="hljs-keyword">delete</span> <span class="hljs-keyword">from</span> books <span class="hljs-keyword">where</span> bookId <span class="hljs-operator">=</span> <span class="hljs-number">3</span>;<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="什么是事务？"><a href="#什么是事务？" class="headerlink" title="什么是事务？"></a>什么是事务？</h2><p>事务是一个不可分割的数据库操作序列，也是数据库并发控制的基本单位，其执行的结果必须使数据库从一种一致性状态变到另一种一致性状态。事务是逻辑上的一组操作，要么都执行，要么都不执行。</p>
+<p>比如转账，我向一个人转账100元，我少了100元，那个人多了100元，如果银行系统出现故障，导致我少了100，而那个人却没有增加，这就不对了，事务就是保证这两个关键操作要么都成功，要么都要失败。</p>
+<hr>
+<h2 id="1-事务的四大特性ACID"><a href="#1-事务的四大特性ACID" class="headerlink" title="1.事务的四大特性ACID"></a>1.事务的四大特性<strong>ACID</strong></h2><ul>
+<li>原子性：<strong>要么全部成功，要么全部失败</strong>，事务在执行过程中发生错误，就会回到开始前的状态，就像这个事务从来没有执行过一样。</li>
+<li>一致性：一个事务执行之前和执行之后数据库都必须处于一致性状态。</li>
+<li>隔离性：一个事务的影响在该事务提交前对其他事物都不可见。——这通过锁来实现</li>
+<li>持久性：只要事务成功结束，他对数据库所做的更新就必须永久保存下来。</li>
+</ul>
+<p>锁会带来3种问题：<strong>丢失更新、脏读、不可重复读。</strong></p>
+<hr>
+<h2 id="事务的隔离级别"><a href="#事务的隔离级别" class="headerlink" title="事务的隔离级别"></a>事务的隔离级别</h2><p>第一种隔离级别：Read uncommitted(读未提交)</p>
+<p>解决了更新丢失，但还是可能会出现脏读</p>
+<p>第二种隔离级别：Read committed(读提交)</p>
+<p>解决了更新丢失和脏读问题</p>
+<p>第三种隔离级别：Repeatable read(可重复读取)</p>
+<p>解决了更新丢失、脏读、不可重复读、但是还会出现幻读</p>
+<p>第四种隔离级别：Serializable(可序化)</p>
+<p>解决了更新丢失、脏读、不可重复读、幻读</p>
+<p><strong>脏读</strong> ：当一个事务正在访问数据，并且对数据进行了修改，而这种修改还没有提交到数据库中，这时，另外一个事务也访问这个数据，然后使用了这个数据。</p>
+<p><strong>2.</strong> <strong>不可重复读</strong> ：在一个事务内，多次读同一数据。在这个事务还没有结束时，另外一个事务也访问该同一数据。那么，在第一个事务中的两 次读数据之间，由于第二个事务的修改，那么第一个事务两次读到的的数据可能是不一样的。这样就发生了在一个事务内两次读到的数据是不一样的，因此称为是不 可重复读。</p>
+<p><strong>3.</strong> <strong>幻读</strong> : 第一个事务对一个表中的数据进行了修改，这种修改涉及到表中的全部数据行。 同时，第二个事务也修改这个表中的数据，这种修改是向表中插入一行新数据。那么，以后就会发生操作第一个事务的用户发现表中还有没有修改的数据行，就好象 发生了幻觉一样。</p>
+<h2 id="有多少种日志？"><a href="#有多少种日志？" class="headerlink" title="有多少种日志？"></a>有多少种日志？</h2><ul>
+<li>错误日志  ：记录出错信息，也记录一些警告信息或者正确的信息。</li>
+<li>查询日志  ：记录所有对数据库请求的信息，不论这些请求是否得到了正确的执行。</li>
+<li>慢查询日志：设置一个阈值，将运行时间超过该值的所有SQL语句都记录到慢查询的日志文件中。</li>
+<li>二进制日志：记录对数据库执行更改的所有操作。</li>
+<li>中继日志</li>
+<li>事务日志</li>
+</ul>
+<hr>
+<h2 id="数据库三大范式是什么"><a href="#数据库三大范式是什么" class="headerlink" title="数据库三大范式是什么"></a>数据库三大范式是什么</h2><p>第一范式：每个列都不可以再拆分。</p>
+<p>第二范式：在第一范式的基础上，非主键列完全依赖于主键，而不能是依赖于主键的一部分。</p>
+<p>第三范式：在第二范式的基础上，非主键列只依赖于主键，不依赖于其他非主键。</p>
+<p>在设计数据库结构的时候，要尽量遵守三范式，如果不遵守，必须有足够的理由。比如性能。事实上我们经常会为了性能而妥协数据库的设计。</p>
+<ul>
+<li>列不可再分</li>
+<li>行可以唯一区分，主键约束（属性依赖于主键）</li>
+<li>属性不可依赖非主属性，外键约束</li>
+</ul>
+<hr>
+<h2 id="数据库三级系统模式："><a href="#数据库三级系统模式：" class="headerlink" title="数据库三级系统模式："></a>数据库三级系统模式：</h2><p>外模式、模式和内模式。</p>
+<hr>
+<h2 id="超键、候选键、主键、外键分别是什么？"><a href="#超键、候选键、主键、外键分别是什么？" class="headerlink" title="超键、候选键、主键、外键分别是什么？"></a><strong>超键、候选键、主键、外键分别是什么？</strong></h2><ul>
+<li>超键：在关系中能唯一标识元组的属性集称为关系模式的超键。一个属性可以为作为一个超键，多个属性组合在一起也可以作为一个超键。超键包含候选键和主键。</li>
+<li>候选键：是最小超键，即没有冗余元素的超键。</li>
+<li>主键：数据库表中对储存数据对象予以唯一和完整标识的数据列或属性的组合。一个数据列只能有一个主键，且主键的取值不能缺失，即不能为空值（Null）。</li>
+<li>外键：在一个表中存在的另一个表的主键称此表的外键。</li>
+</ul>
+<h2 id="SQL-约束有哪几种？"><a href="#SQL-约束有哪几种？" class="headerlink" title="SQL 约束有哪几种？"></a><strong>SQL 约束有哪几种？</strong></h2><ul>
+<li>NOT NULL: 用于控制字段的内容一定不能为空（NULL）。</li>
+<li>UNIQUE: 控件字段内容不能重复，一个表允许有多个 Unique 约束。</li>
+<li>PRIMARY KEY: 也是用于控件字段内容不能重复，但它在一个表只允许出现一个。</li>
+<li>FOREIGN KEY: 用于预防破坏表之间连接的动作，也能防止非法数据插入外键列，因为它必须是它指向的那个表中的值之一。</li>
+<li>CHECK: 用于控制字段的值范围。</li>
+</ul>
+<hr>
+<h2 id="关联查询：内联接-左连接、右连接、全连接区别？-联合查询"><a href="#关联查询：内联接-左连接、右连接、全连接区别？-联合查询" class="headerlink" title="关联查询：内联接,左连接、右连接、全连接区别？ 联合查询"></a>关联查询：内联接,左连接、右连接、全连接区别？ 联合查询</h2><p>内连接：得到的两个表的乘积</p>
+<p>隐式内连接： select * from A,B where 条件;<br>显示内连接： select * from A inner join B on 条件;</p>
+<p>左连接（左外连接）：这个关键字左边的表为主表,会将这个表中的数据全部查询出来,如果右表中没有这条数据,则用NULL字段表示</p>
+<p>left join  ：select * from a_table a left join b_table bon a.a_id &#x3D; b.b_id;</p>
+<p>右连接（右外连接）：这个关键字右边的表为主,然后将符合条件的查询出来,左表中没有的字段,使用NULL进行补充</p>
+<p>right join： select * from a_table a right outer join b_table b on a.a_id &#x3D; b.b_id;</p>
+<p>全连接（全外连接）：可以将一条查询语句作为另外一个查询语句的条件和表,再次进行查询.  mysql不支持</p>
+<p>联合查询（UNION与UNION ALL）：就是把多个结果集集中在一起，UNION前的结果为基准，需要注意的是联合查询的列数要相等，相同的记录行会合并</p>
+<hr>
+<h2 id="SQL语句中常用关键词及其解释："><a href="#SQL语句中常用关键词及其解释：" class="headerlink" title="SQL语句中常用关键词及其解释："></a>SQL语句中常用关键词及其解释：</h2><p>distinct：去重</p>
+<p>SELECT DISTINCT 列名称 FROM 表名称</p>
+<p>limit  限制 分页  limit(0,50)  从0开始的 50条数据		</p>
+<p>and or：</p>
+<ul>
+<li>如果第一个条件和第二个条件都成立，则 AND 运算符显示一条记录。</li>
+<li>如果第一个条件和第二个条件中只要有一个成立，则 OR 运算符显示一条记录。</li>
+</ul>
+<p>in：IN 操作符允许我们在 WHERE 子句中规定多个值。</p>
+<p>从表中选取姓氏为 Adams 和 Carter 的人：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs mysql">SELECT * FROM Persons<br>WHERE LastName IN (&#x27;Adams&#x27;,&#x27;Carter&#x27;)<br></code></pre></td></tr></table></figure>
+
+<p>between on：会选取介于两个值之间的数据范围。这些值可以是数值、文本或者日 ，包括两边临界值</p>
+<p>like：_  是一个字符   %是很多</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs mysql">SELECT * FROM Persons<br>WHERE City LIKE &#x27;Ne%&#x27;<br></code></pre></td></tr></table></figure>
+
+<p>left join &#x2F;right join</p>
+<p>union：用于合并两个或多个 SELECT 语句的结果集。 </p>
+<p>union数据相同时留第一个，第二个被覆盖，如果不想被覆盖用union all</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs mysql">SELECT column_name(s) FROM table_name1<br>UNION<br>SELECT column_name(s) FROM table_name2<br></code></pre></td></tr></table></figure>
+
+<p>order by：根据指定的列对结果集进行排序。  desc 降序   asc升序</p>
+<p>以逆字母顺序显示公司名称，并以数字顺序显示顺序号：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mysql">SELECT Company, OrderNumber FROM Orders ORDER BY Company DESC, OrderNumber ASC<br></code></pre></td></tr></table></figure>
+
+<p>group by：分组，常常和函数结合</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs mysql">SELECT Customer,SUM(OrderPrice) FROM Orders<br>GROUP BY Customer<br></code></pre></td></tr></table></figure>
+
+<p>sql函数：avg，count，first，last，max，min，sum，</p>
+<p>where和having：</p>
+<ul>
+<li>having是用来筛选组，where是用来筛选记录</li>
+<li>一般情况下分组筛选的时候用Having，其他情况下用where。</li>
+<li>Having是先分组在进行筛选，而where是先筛选再进行分组。</li>
+</ul>
+<hr>
+<h2 id="什么是索引"><a href="#什么是索引" class="headerlink" title="什么是索引"></a>什么是索引</h2><p>数据库索引是对数据库表中一列或多列的值进行排序的一种结构，使用索引可快速访问数据库表中的特定信息</p>
+<p>更通俗的说，索引就相当于目录。在用新华字典时的目录，可以快速定位！</p>
+<p>索引本质上就是一种通过减少查询需要遍历行数，加快查询性能的数据结构</p>
+<p>常见的索引的数据结构有：B+Tree、Hash索引。</p>
+<p>B+Tree索引：B+Tree是mysql使用最频繁的一个索引数据结构，是Innodb和Myisam存储引擎模式的索引类型。B+Tree索引在查找时需要从根节点到叶节点进行多次IO操作，在查询速度比不上Hash索引，但是更适合排序等操作。</p>
+<p>B+Tree索引的优点：</p>
+<ul>
+<li>页内节点不存储内容，每次IO可以读取更多的行，大大减少磁盘I&#x2F;O读取次数</li>
+<li>带顺序访问指针的B+Tree：B+Tree所有索引数据都存储在叶子结点上，并且增加了顺序访问指针，每个叶子节点都有指向相邻叶子节点的指针，这样做是为了提高区间查询效率。</li>
+</ul>
+<p>Hash索引：MySQL中只有Memory存储引擎支持hash索引，是Memory表的默认索引类型。hash索引把数据以hash值形式组织起来，因此查询效率非常高，可以一次定位。</p>
+<p>hash索引的缺点：</p>
+<ul>
+<li>Hash索引仅能满足等值的查询，不能满足范围查询、排序。因为数据在经过Hash算法后，其大小关系就可能发生变化。</li>
+<li>当创建组合索引时，不能只使用组合索引的部分列进行查询。因为hash索引是把多个列数据合并后再计算Hash值，所以对单独列数据计算Hash值是没有意义的。</li>
+<li>当发生Hash碰撞时，Hash索引不能避免表数据的扫描。因为仅仅比较Hash值是不够的，需要比较实际的值以判定是否符合要求。</li>
+</ul>
+<hr>
+<h2 id="索引优缺点"><a href="#索引优缺点" class="headerlink" title="索引优缺点"></a>索引优缺点</h2><ul>
+<li>可以大大加快数据的检索速度</li>
+<li>通过创建唯一索引，可以保证数据库中每一行数据的唯一性。</li>
+<li>通过使用索引，可以在查询的过程中，使用优化隐藏器，提高系统的性能。</li>
+</ul>
+<ol>
+<li>创建索引和维护索引要耗费时间，这种时间随着数据的增加而增加</li>
+<li>索引需要占物理空间</li>
+<li>当对表中的数据进行增加、删除和修改的时候，索引也要动态的维护，这样就降低了数据的维护速度。</li>
+</ol>
+<hr>
+<h2 id="索引类型"><a href="#索引类型" class="headerlink" title="索引类型"></a>索引类型</h2><p>1.普通索引：加速查询</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs mysql">直接创建索引：<br>CREATE INDEX index_name ON table(column(length))<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs mysql">修改表结构时创建索引：<br>ALTER TABLE table_name ADD INDEX index_name ON (column(length))<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs mysql">创建表时同时创建索引：<br>CREATE TABLE `table` (  `id` int(11) NOT NULL AUTO_INCREMENT ,  `title` char(255) CHARACTER NOT NULL ,  `content` text CHARACTER NULL ,  `time` int(10) NULL DEFAULT NULL ,  PRIMARY KEY (`id`),  INDEX index_name (title(length)) )<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs mysql">删除索引：<br>DROP INDEX index_name ON table<br></code></pre></td></tr></table></figure>
+
+<p>2.唯一索引：索引列的值必须唯一，但允许有空值。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs mysql">创建唯一索引：<br>CREATE UNIQUE INDEX indexName ON table(column(length))<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs mysql">修改表结构时创建索引：<br>ALTER TABLE table_name ADD UNIQUE indexName ON (column(length))<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs mysql">创建表时直接指定唯一索引：<br>CREATE TABLE `table` (  `id` int(11) NOT NULL AUTO_INCREMENT ,  `title` char(255) CHARACTER NOT NULL ,  `content` text CHARACTER NULL ,  `time` int(10) NULL DEFAULT NULL ,  UNIQUE indexName (title(length)) );<br></code></pre></td></tr></table></figure>
+
+<p>3.主键索引：一个表只能有一个主键，不允许有空值。一般是在建表的时候同时创建主键索引</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mysql">CREATE TABLE `table` (  `id` int(11) NOT NULL AUTO_INCREMENT ,  `title` char(255) NOT NULL ,  PRIMARY KEY (`id`) );<br></code></pre></td></tr></table></figure>
+
+<p>4.组合索引：多个列值组成一个索引，专门用于组合搜索。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mysql">ALTER TABLE `table` ADD INDEX name_city_age (name,city,age); <br></code></pre></td></tr></table></figure>
+
+<p>5.全文索引：对文本的内容进行分词，进行搜索。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs mysql">创建表的适合添加全文索引：<br>CREATE TABLE `table` (  `id` int(11) NOT NULL AUTO_INCREMENT ,  `title` char(255) CHARACTER NOT NULL ,  `content` text CHARACTER NULL ,  `time` int(10) NULL DEFAULT NULL ,  PRIMARY KEY (`id`),  FULLTEXT (content) );<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs mysql">修改表结构时创建索引：<br>ALTER TABLE article ADD FULLTEXT index_content(content)<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs mysql">直接创建索引：<br>CREATE FULLTEXT INDEX index_content ON article(content)<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="主键、自增主键、主键索引、唯一索引区别"><a href="#主键、自增主键、主键索引、唯一索引区别" class="headerlink" title="主键、自增主键、主键索引、唯一索引区别"></a>主键、自增主键、主键索引、唯一索引区别</h2><ul>
+<li><p>主键：唯一，非空的列，稳定，可以是聚集索引，也可以是非聚集索引</p>
+</li>
+<li><p>主键索引：就是主键，索引的一类</p>
+</li>
+<li><p>自增主键：字段类型为数字，自增，主键</p>
+</li>
+<li><p>唯一索引：索引列的值必须唯一，但允许有空值</p>
+<p>主键是唯一索引，但唯一索引不一定是主键</p>
+</li>
+</ul>
+<h2 id="什么导致索引失效"><a href="#什么导致索引失效" class="headerlink" title="什么导致索引失效"></a>什么导致索引失效</h2><ul>
+<li>在 where 子句中对字段进行 null 值判断</li>
+<li>在 where 子句中使用!&#x3D;或&lt;&gt;操作符</li>
+<li>在 where 子句中使用 or 来连接条件</li>
+<li>like查询是以’%’开头</li>
+<li>在where子句中对字段进行函数操作</li>
+<li>在 where 子句中对字段进行表达式操作<ul>
+<li>select id from t where num&#x2F;2&#x3D;100  失效</li>
+<li>select id from t where num&#x3D;100*2   不失效</li>
+</ul>
+</li>
+<li>左连接查询或者右连接查询查询关联的字段编码格式不一样</li>
+<li>如果mysql估计使用全表扫描要比使用索引快,则不使用索引</li>
+</ul>
+<hr>
+<h2 id="哪些字段适合建立索引？"><a href="#哪些字段适合建立索引？" class="headerlink" title="哪些字段适合建立索引？"></a>哪些字段适合建立索引？</h2><p>1、表的主键、外键必须有索引；<br>2、数据量超过300的表应该有索引；<br>3、经常与其他表进行连接的表，在连接字段上应该建立索引；<br>4、经常出现在Where子句中的字段，特别是大表的字段，应该建立索引；<br>5、频繁进行数据操作的表，不要建立太多的索引；</p>
+<h2 id="优化数据库的方法"><a href="#优化数据库的方法" class="headerlink" title="优化数据库的方法"></a><strong>优化数据库的方法</strong></h2><ul>
+<li><p>优化查询语句：为避免全盘扫描，应该首先应考虑在 where 及 order by 涉及的列上建立索引，以下会导致全盘扫描而索引失效</p>
+<ol>
+<li>避免在 where 子句中对字段进行 null 值判断</li>
+<li>避免在 where 子句中使用!&#x3D;或&lt;&gt;操作符</li>
+<li>避免在 where 子句中使用 or 来连接条件    可以用union all  连接 两个语句</li>
+<li>in 和 not in 也要慎用，能用beteen就不要用in了</li>
+<li>like查询是以’%’开头也会导致全盘扫描</li>
+<li>避免在where子句中对字段进行函数操作</li>
+<li>避免在 where 子句中对字段进行表达式操作</li>
+</ol>
+</li>
+<li><p>使用连接(JOIN)来代替子查询</p>
+</li>
+<li><p>使用联合(UNION)来代替手动创建的临时表</p>
+</li>
+<li><p>选取适用的字段属性，  表中字段的宽度设得尽可能小</p>
+</li>
+<li><p>使用事务  BEGIN COMMIT</p>
+<p>第一个表成功更新后，如果数据库突然出现意外情况，导致第二个表中的操作没有完成，这样就会造成数据的不完整，还可能破坏数据库中的数据，如果使用了事务，要么全成功，要么全失败，保证数据的一致性和完整性。事物以BEGIN关键字开始，COMMIT关键字结束</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs mysql">BEGIN; <br>INSERT into salesinfo set CustomerID=14; <br>UPDATE inventory set Quantity=11 WHERE item=&#x27;book&#x27;;<br>COMMIT;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>锁定表  LOCK TABLE</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs mysql">LOCK TABLE inventory WRITE SELECT Quantity FROM inventory WHERE Item=&#x27;book&#x27;;<br><br>...<br><br>UPDATE inventory SET Quantity=11 WHERE Item=&#x27;book&#x27;;UNLOCK TABLES<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>使用外键</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs mysql">CREATE TABLE customerinfo( CustomerIDINTNOTNULL,PRIMARYKEY(CustomerID))TYPE=INNODB;<br><br> <br>CREATE TABLE salesinfo( SalesIDINTNOTNULL,CustomerIDINTNOTNULL,<br><br> <br>PRIMARYKEY(CustomerID,SalesID),<br><br> <br>FOREIGNKEY(CustomerID)REFERENCEScustomerinfo(CustomerID)ONDELETECASCADE)TYPE=INNODB;<br></code></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>使用索引：索引应建立在那些将用于JOIN,WHERE判断和ORDER BY排序的字段上。尽量不要对数据库中某个含有大量重复的值的字段建立索引。</p>
+</li>
+</ul>
+<hr>
+<h2 id="索引越多越好吗？肯定不是"><a href="#索引越多越好吗？肯定不是" class="headerlink" title="索引越多越好吗？肯定不是"></a>索引越多越好吗？肯定不是</h2><p>1、合理的建立索引能够加速数据读取效率，不合理的建立索引反而会拖慢数据库的响应速度。</p>
+<p>​			不要在选择的栏位上放置索引，这是无意义的。应该在条件选择的语句上合理的放置索引，比如where，order by。</p>
+<p>2、索引越多，更新数据的速度越慢。</p>
+<hr>
+<p>存储器</p>
+<h2 id="视图View"><a href="#视图View" class="headerlink" title="视图View"></a>视图View</h2><p>视图是从一个或者多个表（或视图）导出的表，其内容由查询定义。视图是一个虚拟表，数据库中只存储视图的定义，不存储视图对应的数据，在对视图的数据进行操作时，系统根据视图的定义去操作相应的基本表。可以说，视图是在基本表之上建立的表，它的结构和内容都来自基本表，依据基本表存在而存在。一个视图可以对应一个基本表，也可以对应多个基本表。视图是基本表的抽象和在逻辑意义上建立的新关系。</p>
+<p>试图优缺点：</p>
+<p>（1）视图的优点：</p>
+<p>简化了操作，把经常使用的数据定义为视图<br>安全性，用户只能查询和修改能看到的数据<br>逻辑上的独立性，屏蔽了真实表的结构带来的影响<br>（2）视图的缺点：</p>
+<p>性能差，数据库必须把对视图的查询转化成对基本表的查询，如果这个视图是由一个复杂的多表查询所定义，那么，即使是视图的一个简单查询，数据库也要把它变成一个复杂的结合体，需要花费一定的时间。</p>
+<h2 id="视图和表的区别和联系"><a href="#视图和表的区别和联系" class="headerlink" title="视图和表的区别和联系"></a>视图和表的区别和联系</h2><p>区别：1、视图是已经编译好的sql语句。而表不是<br>      2、视图没有实际的物理记录。而表有。<br>      3、表是内容，视图是窗口<br>      4、表只用物理空间而视图不占用物理空间，视图只是逻辑概念的存在，表可以及时对它进行修改，但视图只能有创建的语句来修改<br>      5、表是内模式，视图是外模式<br>      6、视图是查看数据表的一种方法，可以查询数据表中某些字段构成的数据，只是一些SQL语句的集合。从安全的角度说，视图可以不给用户接触数据表，从而不知道表结构。<br>      7、表属于全局模式中的表，是实表；视图属于局部模式的表，是虚表。<br>      8、视图的建立和删除只影响视图本身，不影响对应的基本表。</p>
+<p>联系：视图（view）是在基本表之上建立的表，它的结构（即所定义的列）和内容（即所有数据行）都来自基本表，它依据基本表存在而存在。一个视图可以对应一个基本表，也可以对应多个基本表。视图是基本表的抽象和在逻辑意义上建立的新关系。</p>
+<h2 id="存储过程Procedure"><a href="#存储过程Procedure" class="headerlink" title="存储过程Procedure"></a>存储过程Procedure</h2><p>SQL语句需要先编译然后执行，而存储过程就是一组为了完成特定功能的SQL语句集，经过编译后存储在数据库中，<strong>用户通过制定存储过程的名字并给定参数</strong>来调用它。</p>
+<p>存储过程的优点：</p>
+<p>（1）标准组件式编程：存储过程创建后，可以在程序中被多次调用，而不必重新编写该存储过程的SQL语句。并且DBA可以随时对存储过程进行修改，对应用程序源代码毫无影响。<br>（2）更快的执行速度：如果某一操作包含大量的Transaction-SQL代码或分别被多次执行，那么存储过程要比批处理的执行速度快很多。因为存储过程是预编译的，在首次运行一个存储过程时查询，优化器对其进行分析优化，并且给出最终被存储在系统表中的执行计划。而批处理的Transaction-SQL语句在每次运行时都要进行编译和优化，速度相对要慢一些。<br>（3）增强SQL语言的功能和灵活性：存储过程可以用控制语句编写，有很强的灵活性，可以完成复杂的判杂的断和较复运算。<br>（4）减少网络流量：针对同一个数据库对象的操作（如查询、修改），如果这一操作所涉及的Transaction-SQL语句被组织进存储过程，那么当在客户计算机上调用该存储过程时，网络中传送的只是该调用语句，从而大大减少网络流量并降低了网络负载。<br>（5）作为一种安全机制来充分利用：通过对执行某一存储过程的权限进行限制，能够实现对相应的数据的访问权限的限制，避免了非授权用户对数据的访问，保证了数据的安全。</p>
+<h2 id="函数和存储过程的区别"><a href="#函数和存储过程的区别" class="headerlink" title="函数和存储过程的区别"></a>函数和存储过程的区别</h2><p>　　1、<strong>存储过程</strong>用户在数据库中<strong>完成特定操作或者任务</strong>（如插入，删除等），<strong>函数</strong>用于<strong>返回特定的数据</strong>。</p>
+<p>　　2、存储过程声明用procedure，函数用function。</p>
+<p>　　3、存储过程<strong>不需要返回类型</strong>，函数<strong>必须要返回类型</strong>。</p>
+<p>　　4、存储过程可作为<strong>独立的pl-sql执行</strong>，函数<strong>不能</strong>作为独<strong>立的plsql执行</strong>，必须作为表达式的一部分。</p>
+<p>　　5、存储过程<strong>只能通过out和in&#x2F;out来返回值</strong>，函数除了<strong>可以使用out，in&#x2F;out以外，还可以使用return返回值。</strong></p>
+<p>　　6、sql语句（DML或SELECT)中不可用调用存储过程，而函数可以。</p>
+<h2 id="触发器Trigger"><a href="#触发器Trigger" class="headerlink" title="触发器Trigger"></a>触发器Trigger</h2><p>触发器是用户定义在关系表上的一类由事件驱动的特殊的存储过程。触发器是指一段代码，当触发某个事件时，自动执行这些代码。</p>
+<h2 id="游标Cursor"><a href="#游标Cursor" class="headerlink" title="游标Cursor"></a>游标Cursor</h2><p>游标，就是游动的标识，可以充当指针的作用，使用游标可以遍历查询数据库返回的结果集中的所有记录，但是每次只能提取一条记录，即每次只能指向并取出一行的数据，以便进行相应的操作。当你没有使用游标的时候，相当于别人一下给你所有的东西让你拿走；用了游标之后，相当于别人一件一件的给你，这时你可以先看看这个东西好不好，再自己进行选择。</p>
+<h2 id="数据库锁"><a href="#数据库锁" class="headerlink" title="数据库锁"></a>数据库锁</h2><ul>
+<li>按锁的粒度划分：表级锁、行级锁、页级锁； <ul>
+<li>表级锁：最大粒度的锁级别，发生锁冲突的概率最高，并发度最低，但开销小，加锁快，不会出现死锁；</li>
+<li>行级锁：最小粒度的所级别，发生锁冲突的概率最小，并发度最高，但开销大，加锁慢，会发生死锁；</li>
+<li>页级锁：锁粒度界于表级锁和行级锁之间，对表级锁和行级锁的折中，并发度一般。开销和加锁时间也界于表锁和行锁之间，会出现死锁；</li>
+</ul>
+</li>
+<li>按锁的类型划分：共享（锁S锁）、排他锁（X锁）；<ul>
+<li>共享锁（S锁、读锁）：多个事务可以对同一数据行共享一把S锁，但只能进行读不能修改；</li>
+<li>排它锁（X锁、写锁）：一个事务获取排它锁之后，可以对锁定范围内的数据行执行写操作，在锁定期间，其他事务不能再获取这部分数据行的锁（共享锁、排它锁），只允许获取到排它锁的事务进行更新数据。</li>
+</ul>
+</li>
+<li>按锁的使用策略划分：乐观锁、悲观锁；<ul>
+<li><strong>悲观锁</strong>：假定会发生并发冲突，屏蔽一切可能违反数据完整性的操作。在查询完数据的时候就把事务锁起来，直到提交事务。实现方式：使用数据库中的锁机制</li>
+<li><strong>乐观锁</strong>：假设不会发生并发冲突，只在提交操作时检查是否违反数据完整性。在修改数据的时候把事务锁起来，通过version的方式来进行锁定。实现方式：乐一般会使用版本号机制或CAS算法实现。</li>
+</ul>
+</li>
+</ul>
+<p>死锁？ 怎么解决？</p>
+<p>死锁是指两个或多个事务在同一资源上相互占用，并请求锁定对方的资源，从而导致恶性循环的现象。</p>
+<p>常见的解决死锁的方法</p>
+<p>1、如果不同程序会并发存取多个表，尽量约定以相同的顺序访问表，可以大大降低死锁机会。</p>
+<p>2、在同一个事务中，尽可能做到一次锁定所需要的所有资源，减少死锁产生概率；</p>
+<p>3、对于非常容易产生死锁的业务部分，可以尝试使用升级锁定颗粒度，通过表级锁定来减少死锁产生的概率；</p>
+<p>如果业务处理不好可以用分布式事务锁或者使用乐观锁</p>
+<h2 id="存储引擎MyISAM、InnoDB"><a href="#存储引擎MyISAM、InnoDB" class="headerlink" title="存储引擎MyISAM、InnoDB"></a>存储引擎MyISAM、InnoDB</h2><p>MYISAM:(mysql5.5之前)性能好，不支持事务处理</p>
+<p>InnoDB：支持ACID兼容的事务功能。</p>
+<h2 id="drop、delete、truncate"><a href="#drop、delete、truncate" class="headerlink" title="drop、delete、truncate"></a>drop、delete、truncate</h2><p>在不再需要一张表的时候，用drop；在想删除部分数据行时候，用delete；在保留表而删除所有数据的时候用truncate。</p>
+<h3 id="UNION与UNION-ALL的区别？"><a href="#UNION与UNION-ALL的区别？" class="headerlink" title="UNION与UNION ALL的区别？"></a><strong>UNION与UNION ALL的区别？</strong></h3><ul>
+<li>如果使用UNION ALL，不会合并重复的记录行</li>
+<li>效率 UNION 高于 UNION ALL</li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>mysql</div>
+      <div>http://example.com/2022/06/29/mysql/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>高国鹏</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年6月29日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/06/29/jdbc/" title="jdbc">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">jdbc</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/06/29/javaxnj/" title="java虚拟机">
+                        <span class="hidden-mobile">java虚拟机</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
